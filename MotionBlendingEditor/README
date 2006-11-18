@@ -1,0 +1,17 @@
+Motion Blending Editor v0.3.4.
+
+Compiles fines under Gentoo / FC4
+
+gcc  3.4.5 								www.gcc.org
+Gtk/Gdk 2.8.10						www.gtk.org
+libgnomecanvas 2.12.0			www.gtk.org
+
+AReVi_2005m09d29 		http://sourceforge.net/projects/arevi
+hLib_2005m11md04		same adress
+
+
+INSTALLATION : 
+
+to build :  ./configure && make
+
+executable must stay in the MBE directory.
