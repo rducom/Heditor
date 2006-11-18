@@ -1,0 +1,134 @@
+#!/bin/sh
+## LI2/ENIB - hLib
+##----------------------------------------------------------------------------
+## file        : tools/ConstraintEditor/configure
+## description : script to build the hLib constraints editor
+## author(s)   : T. Jourdan 
+##----------------------------------------------------------------------------
+## Copyright (C) 2002-2004  LI2/ENIB
+##   Laboratoire d'Ingenierie Informatique (LI2)
+##   Ecole Nationale d'Ingenieurs de Brest (ENIB)
+##   CS 73862 - 29238 BREST Cedex 3 - France
+##   Tel: +33 (0)298 05 66 31, Fax: +33 (0)298 05 66 29, e-mail: li2@enib.fr
+##
+## This software package is free software; you can redistribute it and/or
+## modify it under the terms of the GNU Lesser General Public License as
+## published by the Free Software Foundation; either version 2.1 of the
+## License, or (at your option) any later version.
+## This software package is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+## General Public License (file LICENSE-LGPL) for more details.
+##----------------------------------------------------------------------------
+
+##------- Global settings ----------------------------------------------------
+
+LIBDIR=../../lib
+
+ARCONFIG="`which arevi-config`"
+if [ ! -x "${ARCONFIG}" ] ; then
+  echo "Cannot find arevi-config !"
+  exit 1
+fi
+
+ARDIR="`${ARCONFIG} --install`"
+ARLIB="${ARDIR}/lib"
+
+HDIR="${ARDIR}"
+HLIB="${HDIR}/lib"
+HINC="${HDIR}/include/hLib"
+
+CCFLAGS="`${ARCONFIG} --cflags` 
+	 `pkg-config gtk+-2.0 --cflags`
+	 `pkg-config libglade-2.0 --cflags`
+	 -I./include"
+
+LDFLAGS="`${ARCONFIG} --ldflags`"
+
+##------- Executable settings ------------------------------------------------
+
+DYNLIB_TARGET="gtkTools"
+gtkTools_FULLNAME="`${ARCONFIG} --libformat gtkTools`"
+gtkTools_FILES="./src/gtkAReViWidget.cpp
+		./src/gtkToolsDialogs.cpp
+		./src/gtkToolsImages.cpp
+		./src/gtkToolsTree.cpp
+		./src/gtkWindowPlugger.cpp"
+gtkTools_CLASSES="${ARLIB}/register-classes ./src/gtkToolsClasses.cpp
+		  GtkTools registerGtkToolsClasses"
+gtkTools_CCFLAGS="`${ARCONFIG} --cflags`
+		  `pkg-config gtk+-2.0 --cflags`
+		  `pkg-config libglade-2.0 --cflags`
+		  -I./include"
+gtkTools_LDFLAGS="`${ARCONFIG} --ldflags`
+		  `pkg-config gtk+-2.0 --libs`
+		  `pkg-config libglade-2.0 --libs`"
+
+EXEC_TARGET="constraintEditor"
+constraintEditor_FILES="./src/main.cpp
+			./src/constraintInteractor.cpp
+			./src/editor.cpp
+			./src/editAnchor.cpp
+			./src/editConstraint.cpp
+			./src/anchorController.cpp
+			./src/bodyController.cpp
+			./src/jointController.cpp
+			./src/container.cpp
+			./src/axis.cpp
+			./src/axisButton.cpp
+			./src/constraintSh.cpp
+			./src/editorIkSolver.cpp
+			./src/osdSelector.cpp
+			./src/osdSelectorItem.cpp
+			./src/multiView.cpp
+			./src/planeInteractor.cpp
+			./src/undoRedo.cpp
+			./src/c3dof.cpp
+			./src/c3dofSh.cpp
+			./src/keyOrientation.cpp
+			./src/obj2shpWrapper.cpp"
+constraintEditor_CLASSES="${ARLIB}/register-classes ./src/constraintEditorClasses.cpp
+	                  :: registerConstraintEditorClasses"
+constraintEditor_CCFLAGS="`${ARCONFIG} --cflags --debug`
+			  `pkg-config gtk+-2.0 --cflags`
+			  `pkg-config libglade-2.0 --cflags`
+			  -I./include -I${HINC}"
+constraintEditor_LDFLAGS="`${ARCONFIG} --ldflags`
+			  `pkg-config gtk+-2.0 --libs`
+			  `pkg-config libglade-2.0 --libs`
+			  -L. -Wl,-rpath,. -lgtkTools -lAReViHLib -lAReViHLib_bvh -lAReViHLib_hla -lAReViHLib_hlh -lAReViHLib_md5 -lAReViHLib_ms3d -lAReViHLib_smd"
+
+##----------------------------------------------------------------------------
+
+# Generate `makefile' according to the above settings
+
+set ARLIB HLIB
+. ${ARLIB}/build-makefile > makefile
+
+##----------------------------------------------------------------------------
+
+# Specific targets can be resolved before/after `all' or `clean' are called
+
+post_all :
+	@if [ ! -h ./GLFonts ] ; then ln -sf ${ARLIB}/GLFonts . ; fi
+	@if [ ! -h ./BMFonts ] ; then ln -sf ${ARLIB}/BMFonts . ; fi
+	@if [ ! -h ./plugins ] ; then ln -sf ${ARLIB} plugins ; fi
+#	@case `${ARCONFIG} --sys` in \
+#          CYGWIN*) \
+#            echo ; \
+#            echo "  export PATH=\$$PATH:${LIBDIR}" ; \
+#            echo ; \
+#            ;; \
+#          Darwin*) \
+#            echo ; \
+#            echo "  export DYLD_LIBRARY_PATH=\$$DYLD_LIBRARY_PATH:${LIBDIR}" ; \
+#            echo ; \
+#            ;; \
+#         esac
+
+pre_clean :
+	rm -rf MyExt/ii_files
+	rm -rf *~
+	rm -f GLFonts BMFonts plugins snap.* $
+
+##----------------------------------------------------------------------------

@@ -1,0 +1,220 @@
+#VRML V2.0 utf8 eMpTyWorlds V3.29.70
+
+DEF RotationCenter Transform {
+  children Shape {
+    appearance Appearance {
+      material Material {
+        diffuseColor 0.121 0.789 0.214
+      }
+    }
+    geometry Sphere {
+      radius 0.2
+    }
+  }
+}
+
+DEF ArrowX Transform {
+  children [
+    Transform {
+      children [
+        Transform {
+          children Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 1 0 0
+              }
+            }
+            geometry Cylinder {
+              radius 0.05
+              height 0.75
+              bottom TRUE
+              top    TRUE
+              side   TRUE
+            }
+          }
+          rotation 0 0 1 -1.570796
+          translation 0.375 0 0
+        }
+        Transform {
+          children Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 1 0 0
+              }
+            }
+            geometry Cone {
+              bottomRadius 0.10
+              height       0.25
+              side         TRUE
+              bottom       TRUE
+            }
+          }
+          rotation 0 0 1 -1.570796
+          translation 0.875 0 0
+        }
+        Group {
+          children Shape {
+            geometry IndexedLineSet {
+              coord Coordinate {
+                point [
+                  0.66 0   0,
+                  0.66 0.5 0
+                ]
+              }
+              coordIndex [
+                0 1
+              ]
+    	      color Color {
+                color [
+                  1 0 0
+                  1 0 0
+                ]
+              }
+              colorIndex [
+                0 1
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
+DEF ArrowY Transform {
+  children [
+    Transform {
+      children [
+        Transform {
+          children Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0 1 0
+              }
+            }
+            geometry Cylinder {
+              radius 0.05
+              height 0.75
+              bottom TRUE
+              top    TRUE
+              side   TRUE
+            }
+          }
+          rotation 0 0 1 -1.570796
+          translation 0.375 0 0
+        }
+        Transform {
+          children Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0 1 0
+              }
+            }
+            geometry Cone {
+              bottomRadius 0.10
+              height       0.25
+              side         TRUE
+              bottom       TRUE
+            }
+          }
+          rotation 0 0 1 -1.570796
+          translation 0.875 0 0
+        }
+        Group {
+          children Shape {
+            geometry IndexedLineSet {
+              coord Coordinate {
+                point [
+                  0.66 0   0,
+                  0.66 0.5 0
+                ]
+              }
+              coordIndex [
+                0 1
+              ]
+              color Color {
+                color [
+                  0 1 0
+                  0 1 0
+                ]
+              }
+              colorIndex [
+                0 1
+              ]
+            }
+          }
+        }
+      ]
+      rotation 0 0 1 1.570796
+    }
+  ]
+}
+
+DEF ArrowZ Transform {
+  children [
+    Transform {
+      children [
+        Transform {
+          children Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0 0 1
+              }
+            }
+            geometry Cylinder {
+              radius 0.05
+              height 0.75
+              bottom TRUE
+              top    TRUE
+              side   TRUE
+            }
+          }
+          rotation 0 0 1 -1.570796
+          translation 0.375 0 0
+        }
+        Transform {
+          children Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0 0 1
+              }
+            }
+            geometry Cone {
+              bottomRadius 0.10
+              height       0.25
+              side         TRUE
+              bottom       TRUE
+            }
+          }
+          rotation 0 0 1 -1.570796
+          translation 0.875 0 0
+        }
+        Group {
+          children Shape {
+            geometry IndexedLineSet {
+              coord Coordinate {
+                point [
+                  0.66 0   0,
+                  0.66 0.5 0
+                ]
+              }
+              coordIndex [
+                0 1
+              ]
+    	      color Color {
+                color [
+                  0 0 1
+                  0 0 1
+                ]
+              }
+              colorIndex [
+                0 1
+              ]
+            }
+          }
+        }
+      ]
+      rotation 0 1 0 -1.570796
+    }
+  ]
+}
