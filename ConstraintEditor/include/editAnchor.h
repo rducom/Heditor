@@ -10,21 +10,39 @@ using namespace GtkTools;
 
 #include "undoRedo.h"
 
+/**
+ * Enumération des colonnes
+ */
 enum LinkColumnID {
-  COLUMN_LINK_NAME = 0,
-  COLUMN_LINK_DATA = 1
+  COLUMN_LINK_NAME = 0, /**< enum value COLUMN_LINK_NAME. */ 
+  COLUMN_LINK_DATA = 1 /**< enum value COLUMN_LINK_DATA. */
 };
 
+/**
+ * Gestion de l'IHM permettant l'edition des ancres
+ */
 class EditAnchor : public GtkAReViWidget {
-public :
-  AR_CLASS(EditAnchor)
-  AR_CONSTRUCTOR(EditAnchor)
+ public :
+ 
+  /**
+   * Constructeur de la classe EditAnchor
+   * @param arCW Référence spécifique à ARéVi
+   */
+   AR_CLASS(EditAnchor)
+   AR_CONSTRUCTOR(EditAnchor)
+   
+  /**
+   * Destructeur de EditAnchor
+   */
 
-  virtual
-  void
-  fill(ArRef<Anchor> anchor, ArRef<Body> body);
+  /**
+   * Remplissage de la boite de dialogue
+   * @param anchor Référence sur une ancre
+   * @param body Référence sur un squelette
+   */
+  virtual void fill(ArRef<Anchor> anchor, ArRef<Body> body);
 
-protected :
+ protected :
 };
 
 #endif // _EDIT_ANCHOR_H_
