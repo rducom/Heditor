@@ -9,6 +9,9 @@ class Body;
 }
 using namespace hLib;
 
+/**
+ * Classe décrivant le contrôle du modèle chargé
+ */
 class BodyController : public ArObject {
 public :
   AR_CLASS(BodyController)
@@ -16,31 +19,40 @@ public :
 
   // Body management
 
-  virtual
-  void
-  setBody(ArRef<Body> body);
+  /**
+   * Classe permettant d'affecter un modèle au BodyController
+   * @param body Le modèle que doit contrôler le BodyController
+   */
+  virtual void setBody(ArRef<Body> body);
 
-  virtual
-  ArConstRef<Body>
-  getBody(void) const;
+  /**
+   * Méthode permettant de récupérer en consultation le modèle que contrôle le BodyController
+   * @return Le modèle
+   */
+  virtual ArConstRef<Body> getBody(void) const;
 
-  virtual
-  ArRef<Body>
-  accessBody(void);
+  /**
+   * Méthode permettant de récupérer le modèle que contrôle le BodyController
+   * @return Le modèle
+   */
+  virtual ArRef<Body> accessBody(void);
 
   AR_CALLBACK(BodyController, Body, _bodyCB, ArRef<Body> body; )
 
 protected :
 
-  virtual
-  void
-  _onBody(void);
+  /**
+   * Méthode déclenchée lors d'un changement du modèle
+   * @param  
+   */
+  virtual void _onBody(void);
 
 protected :
+  /** Le modèle chargé */
   ArRef<Body> _body;
+  /** Gestionnaire des évènements sur le modèle */
   CallbackManager<BodyController, BodyEvent> _bodyCB;
 
-  //UndoRedo* _undoRedo;
 };
 
 #endif // _BODY_CONTROLLER_H_
